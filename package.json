@@ -1,0 +1,13 @@
+{
+	"name": "dnd-api",
+	"description": "A JSON API for the DND.",
+	"version": "0.1.0",
+	"dependencies": {
+		"express": "~3.2",
+		"coffee-script": "~1.6"
+	},
+	"engines": {
+		"node": "0.10.x",
+		"npm": "1.2.x"
+	}
+}
