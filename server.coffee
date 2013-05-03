@@ -25,8 +25,8 @@ mongo.Db.connect app.get('mongoUri'), (err, db) ->
 
   search = (query, callback) ->
     console.log query
-    db.command {text: 'people', search: query}, (err, docs) ->
-      callback docs
+    db.command {text: 'people', search: query}, (err, res) ->
+      callback res.results
 
   app.get '/', (req, res) ->
     lookup req.query, (json) ->
