@@ -7,7 +7,7 @@ This is a JSON API for the DND, allowing you to quickly and easily integrate int
 It's easy to perform a full-text search on the database:
 
 ```bash
-λ helios dnd-api → λ git master → curl hacktown.cs.dartmouth.edu:4000/cormen
+λ helios dnd-api → λ git master → curl dnd.hackdartmouth.org/cormen
 [
   {
     "score": 2.3666666666666667,
@@ -34,7 +34,7 @@ It's easy to perform a full-text search on the database:
 You can also query specific fields:
 
 ```bash
-λ helios dnd-api → λ git master → curl hacktown.cs.dartmouth.edu:4000/\?uid=d34023k
+λ helios dnd-api → λ git master → curl dnd.hackdartmouth.org/\?uid=d34023k
 [
   {
     "uid": "d34023k",
@@ -65,7 +65,7 @@ If you want to run this on your local machine, you'll need Node.js and MongoDB.
 ```bash
 $ sudo npm install -g
 $ coffee import.coffee
-$ coffee server.coffee
-$ curl localhost:4000/
+$ node server
+$ curl localhost:4000
 ```
 

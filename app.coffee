@@ -4,17 +4,16 @@ mongo = require 'mongodb'
 app = express()
 
 app.configure ->
-  app.set 'port', 4000
+  app.set 'port', process.env.PORT or 4000
   app.use express.bodyParser()
+  app.set 'mongoUri', process.env.MONGOLAB_URI or process.env.MONGOHQ_URL or 'mongodb://localhost/dnd-api'
 
 app.configure 'development', ->
   app.use express.logger('dev')
   app.use express.errorHandler()
-  app.set 'mongoUri', 'mongodb://localhost/dnd-api'
 
 app.configure 'production', ->
   app.enable 'trust proxy'
-  app.set 'mongoUri', process.env.MONGOLAB_URI or process.env.MONGOHQ_URL
 
 mongo.Db.connect app.get('mongoUri'), (err, db) ->
   people = db.collection 'people'
