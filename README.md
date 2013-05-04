@@ -108,6 +108,47 @@ $ curl dnd.hackdartmouth.org?department=Philosophy
 
 Note that if you don't specify any parameters, you'll get the entire dataset.
 
+You can also POST an arbitrary [MongoDB query](http://docs.mongodb.org/manual/core/read-operations/#read-operations-query-document) as JSON:
+
+```bash
+$ curl -X POST -H "Content-Type: application/json" --data '{"uid":{"$regex":"0000"}}' dnd.hackdartmouth.org
+[
+  {
+    "uid": "d30000t",
+    "name": "Bo Wei Deng",
+    "surname": "Deng",
+    "firstname": "Bo Wei",
+    "nickname": "bowei deng  boooo",
+    "email": "Bo.Wei.Deng.13@Dartmouth.edu",
+    "website": null,
+    "phone": null,
+    "hinman": null,
+    "department": "'13",
+    "affiliations": [
+      "Student",
+      "Alum"
+    ],
+    "_id": "51844ce7732f530700000967"
+  },
+  {
+    "uid": "dz00000",
+    "name": "Potluck",
+    "surname": "Potluck",
+    "firstname": "EMPTY",
+    "nickname": null,
+    "email": "Potluck@Dartmouth.EDU",
+    "website": null,
+    "phone": null,
+    "hinman": "HB 6028",
+    "department": "Software Devel",
+    "affiliations": [
+      "Member"
+    ],
+    "_id": "51844ce7732f5307000014b9"
+  }
+]
+```
+
 Installation
 ------------
 
