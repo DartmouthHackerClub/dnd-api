@@ -1,13 +1,14 @@
 ## Introduction
 
-This is a JSON API for the DND, allowing you to quickly and easily integrate into your application.
+This is a JSON API for the DND, allowing you to quickly and easily
+integrate the Dartmouth network into your application.
 
 ## Usage
 
 It's easy to perform a full-text search on the database:
 
 ```bash
-λ helios dnd-api → λ git master → curl dnd.hackdartmouth.org/cormen
+$ curl dnd.hackdartmouth.org/cormen
 [
   {
     "score": 2.3666666666666667,
@@ -34,7 +35,7 @@ It's easy to perform a full-text search on the database:
 You can also query specific fields:
 
 ```bash
-λ helios dnd-api → λ git master → curl dnd.hackdartmouth.org/\?uid=d34023k
+$ curl dnd.hackdartmouth.org/\?uid=d34023k
 [
   {
     "uid": "d34023k",
