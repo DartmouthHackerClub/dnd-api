@@ -15,28 +15,32 @@ app.configure 'development', ->
 app.configure 'production', ->
   app.enable 'trust proxy'
 
-mongo.Db.connect app.get('mongoUri'), (err, db) ->
-  people = db.collection 'people'
+lookup = (params, callback) ->
+  mongo.Db.connect app.get('mongoUri'), (err, db) ->
+    db.collection 'people', (err, collection) ->
+      collection.find(params).limit(100).toArray (err, docs) ->
+        callback docs
 
-  lookup = (params, callback) ->
-    people.find(params).toArray (err, docs) ->
-      callback docs
-
-  search = (query, callback) ->
+search = (query, callback) ->
+  mongo.Db.connect app.get('mongoUri'), (err, db) ->
     db.command {text: 'people', search: query}, (err, res) ->
-      callback (item.obj for item in res.results)
+      if res.results?
+        callback (item.obj for item in res.results)
+      else
+        # full text search not supported
+        callback []
 
-  app.get '/', (req, res) ->
-    lookup req.query, (json) ->
-      res.jsonp json
+app.get '/', (req, res) ->
+  lookup req.query, (json) ->
+    res.jsonp json
 
-  app.post '/', (req, res) ->
-    lookup req.body, (json) ->
-      res.jsonp json
+app.post '/', (req, res) ->
+  lookup req.body, (json) ->
+    res.jsonp json
 
-  app.get '/:query', (req, res) ->
-    search req.params.query, (json) ->
-      res.jsonp json
+app.get '/:query', (req, res) ->
+  search req.params.query, (json) ->
+    res.jsonp json
 
 app.listen app.get('port'), ->
   console.log "Server started on port #{app.get 'port'} in #{app.settings.env} mode."
