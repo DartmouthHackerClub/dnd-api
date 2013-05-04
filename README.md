@@ -149,6 +149,47 @@ $ curl -X POST -H "Content-Type: application/json" --data '{"uid":{"$regex":"000
 ]
 ```
 
+```bash
+$ curl -X POST -H "Content-Type: application/json" --data '{"phone":{"$regex":"^410"}}' dnd.hackdartmouth.org
+[
+  {
+    "uid": "d36935m",
+    "name": "Charlotte A. Snow",
+    "surname": "Snow",
+    "firstname": "Charlotte",
+    "nickname": null,
+    "email": "Charlotte.A.Snow.15@Dartmouth.edu",
+    "website": null,
+    "phone": "4109409167",
+    "hinman": "3954",
+    "department": "'15",
+    "affiliations": [
+      "Student",
+      "Alum"
+    ],
+    "_id": "51844ce7732f530700000bdc"
+  },
+  [...],
+  {
+    "uid": "d30907f",
+    "name": "Paul A. Wagdalt",
+    "surname": "Wagdalt",
+    "firstname": "Paul",
+    "nickname": "pol  wagdalt  waggy   private snoopy wagz wags",
+    "email": "Paul.A.Wagdalt.13@Dartmouth.edu",
+    "website": null,
+    "phone": "410-585-4272",
+    "hinman": "4331",
+    "department": "'13",
+    "affiliations": [
+      "Student",
+      "Alum"
+    ],
+    "_id": "51844ce7732f5307000034d1"
+  }
+]
+```
+
 Installation
 ------------
 
