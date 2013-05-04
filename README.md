@@ -35,7 +35,7 @@ $ curl dnd.hackdartmouth.org/zd
 You can also query specific fields:
 
 ```bash
-$ curl dnd.hackdartmouth.org?department=Philosophy
+$ curl dnd.hackdartmouth.org?department=philosophy
 [
   {
     "uid": "d15580d",
@@ -106,8 +106,6 @@ $ curl dnd.hackdartmouth.org?department=Philosophy
 ]
 ```
 
-Note that if you don't specify any parameters, you'll get the entire dataset.
-
 You can also POST an arbitrary [MongoDB query](http://docs.mongodb.org/manual/core/read-operations/#read-operations-query-document) as JSON:
 
 ```bash
@@ -148,6 +146,8 @@ $ curl -X POST -H "Content-Type: application/json" --data '{"uid":{"$regex":"000
   }
 ]
 ```
+
+You can use any Perl-compatible regular expression:
 
 ```bash
 $ curl -X POST -H "Content-Type: application/json" --data '{"phone":{"$regex":"^410"}}' dnd.hackdartmouth.org
