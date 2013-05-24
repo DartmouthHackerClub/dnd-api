@@ -19,6 +19,8 @@ app.configure 'production', ->
 regexQuery = (query) ->
   params = {}
   for key, value of query
+    if key not in ['uid', 'name', 'surname', 'firstname', 'nickname', 'email', 'website', 'phone', 'hinman', 'department']
+      continue
     params[key] =
       $regex: value
       $options: 'i'
