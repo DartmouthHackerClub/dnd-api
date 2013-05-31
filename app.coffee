@@ -21,8 +21,13 @@ regexQuery = (query) ->
   for key, value of query
     if key not in ['uid', 'name', 'surname', 'firstname', 'nickname', 'email', 'website', 'phone', 'hinman', 'department']
       continue
+    words = value.split ' '
+    if words.length > 1
+      regex = "(#{words.join '|'})"
+    else
+      regex = words[0]
     params[key] =
-      $regex: value
+      $regex: regex
       $options: 'i'
   params
 
