@@ -37,9 +37,12 @@ lookup = (params, callback) ->
       collection.find(params).limit(app.get 'resultLimit').toArray (err, docs) ->
         callback docs
 
-search = (query, callback) ->
+search = (query, filter, callback) ->
   mongo.Db.connect app.get('mongoUri'), (err, db) ->
-    db.command {text: 'people', search: query}, (err, res) ->
+    command = {text: 'people', search: query}
+    if filter
+      command['filter'] = filter
+    db.command command, (err, res) ->
       if res.results?
         callback (item.obj for item in res.results)
       else
@@ -55,7 +58,7 @@ app.post '/', (req, res) ->
     res.jsonp json
 
 app.get '/:query', (req, res) ->
-  search req.params.query, (json) ->
+  search req.params.query, regexQuery(req.query), (json) ->
     res.jsonp json
 
 app.listen app.get('port'), ->
