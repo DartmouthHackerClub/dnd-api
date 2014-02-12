@@ -17,11 +17,11 @@ app.configure 'development', ->
 app.configure 'production', ->
   app.enable 'trust proxy'
 
-checkApiKey = (req, res, next) ->
-    if req.param('apikey') != app.get('apikey')
-        res.status(404)
-    else
-        next()
+checkApiKey = (req, res) ->
+  if req.param('apikey') != app.get('apikey')
+    res.status(404)
+  else
+    next()
 
 app.all('*', checkApiKey)
 
