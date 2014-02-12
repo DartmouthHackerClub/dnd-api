@@ -7,6 +7,7 @@ app.configure ->
   app.set 'port', process.env.PORT or 4000
   app.use express.bodyParser()
   app.set 'mongoUri', process.env.MONGOLAB_URI or process.env.MONGOHQ_URL or 'mongodb://localhost/dnd-api'
+  app.set 'apikey', process.env.DND_API_KEY or "testkey"
   app.set 'resultLimit', process.env.RESULT_LIMIT or 1500
 
 app.configure 'development', ->
@@ -15,6 +16,14 @@ app.configure 'development', ->
 
 app.configure 'production', ->
   app.enable 'trust proxy'
+
+checkApiKey = (req, res, next) ->
+    if req.param('apikey') != app.get('apikey')
+        res.status(404)
+    else
+        next()
+
+app.all('*', checkApiKey)
 
 regexQuery = (query) ->
   params = {}
