@@ -17,7 +17,7 @@ app.configure 'development', ->
 app.configure 'production', ->
   app.enable 'trust proxy'
 
-checkApiKey = (req, res), ->
+checkApiKey = (req, res) ->
   if req.param('apikey') != app.get('apikey')
     res.status(404)
   else
