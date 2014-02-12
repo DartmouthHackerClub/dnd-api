@@ -17,12 +17,11 @@ app.configure 'development', ->
 app.configure 'production', ->
   app.enable 'trust proxy'
 
-checkApiKey = (req, res) ->
+checkApiKey = (req, res, next) ->
   if req.param('apikey') != app.get('apikey')
-    res.status(404)
+    res.status(401).send("bad API key")
   else
     next()
-
 app.all('*', checkApiKey)
 
 regexQuery = (query) ->
@@ -52,7 +51,7 @@ search = (query, filter, callback) ->
     if filter
       command['filter'] = filter
     db.command command, (err, res) ->
-      if res.results?
+      if res? and res.results?
         callback (item.obj for item in res.results)
       else
         console.error "#{query}: query failed: please enable mongodb full text search"
