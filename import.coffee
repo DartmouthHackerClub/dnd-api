@@ -26,6 +26,8 @@ getData = (person) ->
 mongoUri = process.env.MONGOLAB_URI or process.env.MONGOHQ_URL or 'mongodb://localhost/dnd-api'
 mongo.Db.connect mongoUri, (err, db) ->
   people = db.collection 'people'
+  people.remove ->
+    null
   people.insert (getData(person) for id, person of dnd), (err, res) ->
     people.ensureIndex {"$**": "text"}, {name: "SearchIndex"}, (err, index) ->
       db.close()
