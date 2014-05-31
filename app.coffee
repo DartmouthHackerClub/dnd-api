@@ -31,7 +31,7 @@ regexQuery = (query) ->
       continue
     words = value.split ' '
     if words.length > 1
-      regex = "(#{words.join '|'})"
+      regex = ".*(#{words.join '|'}).*"
     else
       regex = words[0]
     params[key] =
